@@ -1,3 +1,5 @@
+import 'package:agenda_nusantara/app/modules/beranda/beranda_controller.dart';
+import 'package:agenda_nusantara/app/modules/beranda/beranda_view.dart';
 import 'package:agenda_nusantara/app/modules/login/login_view.dart';
 import 'package:get/get.dart';
 import 'package:agenda_nusantara/app/routes/app_routes.dart';
@@ -8,14 +10,14 @@ class AppPages {
     GetPage(
       name: AppRoutes.login,
       page: () => LoginView(),
-      binding: BindingsBuilder(() => Get.put(LoginController())),
+      binding: BindingsBuilder(() => Get.lazyPut(() => LoginController())),
     ), //login page
 
-    // GetPage(
-    //   name: AppRoutes.beranda,
-    //   page: () => BerandaView(),
-    //   binding: BindingsBuilder(() => Get.put(BerandaController())),
-    // ), //beranda page
+    GetPage(
+      name: AppRoutes.beranda,
+      page: () => BerandaView(),
+      binding: BindingsBuilder(() => Get.put(BerandaController())),
+    ), //beranda page
 
     // GetPage(
     //   name: AppRoutes.daftarTugas,

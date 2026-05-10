@@ -18,11 +18,7 @@ class DatabaseHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, fileName);
 
-    return await openDatabase(
-      path,
-      version: 1,
-      onCreate: _createDB,
-    );
+    return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
   Future<void> _createDB(Database db, int version) async {
@@ -78,13 +74,17 @@ class DatabaseHelper {
   Future<Map<String, int>> getTugasSummary() async {
     final db = await database;
 
-    final selesai = Sqflite.firstIntValue(
-      await db.rawQuery('SELECT COUNT(*) FROM tugas WHERE selesai = 1'),
-    ) ?? 0;
+    final selesai =
+        Sqflite.firstIntValue(
+          await db.rawQuery('SELECT COUNT(*) FROM tugas WHERE selesai = 1'),
+        ) ??
+        0;
 
-    final belumSelesai = Sqflite.firstIntValue(
-      await db.rawQuery('SELECT COUNT(*) FROM tugas WHERE selesai = 0'),
-    ) ?? 0;
+    final belumSelesai =
+        Sqflite.firstIntValue(
+          await db.rawQuery('SELECT COUNT(*) FROM tugas WHERE selesai = 0'),
+        ) ??
+        0;
 
     return {'selesai': selesai, 'belumSelesai': belumSelesai};
   }

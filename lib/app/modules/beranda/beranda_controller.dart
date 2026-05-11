@@ -2,19 +2,22 @@ import 'package:agenda_nusantara/app/data/database/database_helper.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class BerandaController extends GetxController {
   final selesai = 0.obs;
   final belumSelesai = 0.obs;
   final barGroups = <BarChartGroupData>[].obs;
   final barLabels = <String>[].obs;
+  final selectedDate = DateTime.now().obs;
 
   @override
   void onInit() {
     super.onInit();
     loadData();
   }
-
+  String get tanggalFormatted =>
+      DateFormat('dd MMMM yyyy', 'id').format(selectedDate.value);
   Future<void> loadData() async {
     final summary = await DatabaseHelper.instance.getTugasSummary();
     selesai.value = summary['selesai'] ?? 0;

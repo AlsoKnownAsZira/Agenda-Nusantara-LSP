@@ -35,7 +35,7 @@ class BerandaView extends GetView<BerandaController> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text("${DateTime.now().toString().substring(0, 10)}"),
+                Text(controller.tanggalFormatted),
               ],
             ),
             const SizedBox(height: 20),

@@ -137,10 +137,11 @@ class PengaturanView extends GetView<PengaturanController> {
                     CircleAvatar(
                       radius: 32,
                       backgroundColor: Colors.grey.shade300,
-                      child: const Icon(
-                        Icons.person,
-                        size: 36,
-                        color: Colors.white,
+                      child: Image.asset(
+                        'foto.jpg',
+                        width: 70,
+                        height: 70,
+                        fit: BoxFit.cover,
                       ),
                     ),
                     const SizedBox(width: 16),

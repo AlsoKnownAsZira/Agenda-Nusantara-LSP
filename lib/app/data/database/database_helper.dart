@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../../models/tugas_model.dart';
@@ -45,7 +47,7 @@ class DatabaseHelper {
     await db.insert('pengaturan', {
       'id': 1,
       'username': 'user',
-      'password': 'user',
+      'password': _hashPassword('user'),
     });
   }
 
@@ -106,28 +108,33 @@ class DatabaseHelper {
 
   // ─── PENGATURAN ──────────────────────────────────────
 
+  String _hashPassword(String password) {
+    final bytes = utf8.encode(password);
+    return sha256.convert(bytes).toString();
+  }
+
   Future<bool> login(String username, String password) async {
     final db = await database;
     final result = await db.query(
       'pengaturan',
       where: 'username = ? AND password = ?',
-      whereArgs: [username, password],
+      whereArgs: [username, _hashPassword(password)],
     );
     return result.isNotEmpty;
   }
 
-  Future<String?> getPassword() async {
+  Future<bool> verifyPassword(String password) async {
     final db = await database;
     final result = await db.query('pengaturan', where: 'id = 1');
-    if (result.isEmpty) return null;
-    return result.first['password'] as String;
+    if (result.isEmpty) return false;
+    return result.first['password'] == _hashPassword(password);
   }
 
   Future<int> updatePassword(String passwordBaru) async {
     final db = await database;
     return await db.update(
       'pengaturan',
-      {'password': passwordBaru},
+      {'password': _hashPassword(passwordBaru)},
       where: 'id = ?',
       whereArgs: [1],
     );

@@ -19,8 +19,8 @@ class PengaturanController extends GetxController {
       return;
     }
 
-    final currentPassword = await DatabaseHelper.instance.getPassword();
-    if (input != currentPassword) {
+    final isValid = await DatabaseHelper.instance.verifyPassword(input);
+    if (!isValid) {
       Get.snackbar(
         'Gagal',
         'Password saat ini salah',

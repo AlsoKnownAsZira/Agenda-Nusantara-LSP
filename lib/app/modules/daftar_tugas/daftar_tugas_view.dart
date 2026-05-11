@@ -119,6 +119,18 @@ class _TugasItem extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 2),
+
+                    Text(
+                      tugas.deskripsi,
+                      style: TextStyle(
+                        fontSize: 10,
+                        decoration: isSelesai
+                            ? TextDecoration.lineThrough
+                            : TextDecoration.none,
+                        color: isSelesai ? Colors.grey : Colors.black,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
                     Text(
                       '$tanggalFormatted · ${isPenting ? 'Penting' : 'Biasa'}',
                       style: TextStyle(

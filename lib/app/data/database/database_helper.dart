@@ -29,7 +29,8 @@ class DatabaseHelper {
         deskripsi TEXT,
         tanggal   TEXT NOT NULL,
         kategori  TEXT NOT NULL,
-        selesai   INTEGER DEFAULT 0
+        selesai      INTEGER DEFAULT 0,
+        completed_at TEXT
       )
     ''');
 
@@ -63,9 +64,12 @@ class DatabaseHelper {
 
   Future<int> updateSelesai(int id, int selesai) async {
     final db = await database;
+    final completedAt = selesai == 1
+        ? DateTime.now().toIso8601String().substring(0, 10)
+        : null;
     return await db.update(
       'tugas',
-      {'selesai': selesai},
+      {'selesai': selesai, 'completed_at': completedAt},
       where: 'id = ?',
       whereArgs: [id],
     );
@@ -92,11 +96,11 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>> getTugasPerHari() async {
     final db = await database;
     return await db.rawQuery('''
-      SELECT tanggal, COUNT(*) as jumlah
+      SELECT completed_at as tanggal, COUNT(*) as jumlah
       FROM tugas
-      WHERE selesai = 1
-      GROUP BY tanggal
-      ORDER BY tanggal ASC
+      WHERE selesai = 1 AND completed_at IS NOT NULL
+      GROUP BY completed_at
+      ORDER BY completed_at ASC
     ''');
   }
 

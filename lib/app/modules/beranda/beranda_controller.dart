@@ -24,9 +24,12 @@ class BerandaController extends GetxController {
     final recent =
         perHari.length > 7 ? perHari.sublist(perHari.length - 7) : perHari;
 
+    const hariNames = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
     barLabels.value = recent.map((e) {
       final tanggal = e['tanggal'] as String;
-      return tanggal.substring(8, 10);
+      final dt = DateTime.tryParse(tanggal);
+      if (dt == null) return tanggal;
+      return hariNames[dt.weekday - 1];
     }).toList();
 
     barGroups.value = recent.asMap().entries.map((entry) {

@@ -1,10 +1,11 @@
 class TugasModel {
-  final int? id; // nullable karena primary key otomatis dari database
+  final int? id;
   final String judul;
   final String deskripsi;
   final String tanggal;
   final String kategori;
-  final int selesai; // int karena sqlite tidak mendukung boolean
+  final int selesai;
+  final String? completedAt;
 
   TugasModel({
     this.id,
@@ -13,9 +14,10 @@ class TugasModel {
     required this.tanggal,
     required this.kategori,
     this.selesai = 0,
+    this.completedAt,
   });
 
-  Map<String, dynamic> toMap() { // untuk mengubah object menjadi map yang akan diinsert ke database
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
       'judul': judul,
@@ -23,10 +25,11 @@ class TugasModel {
       'tanggal': tanggal,
       'kategori': kategori,
       'selesai': selesai,
+      'completed_at': completedAt,
     };
   }
 
-  factory TugasModel.fromMap(Map<String, dynamic> map) { // factory method digunakan untuk membuat instance dari model dari data yang diambil dari database
+  factory TugasModel.fromMap(Map<String, dynamic> map) {
     return TugasModel(
       id: map['id'],
       judul: map['judul'],
@@ -34,6 +37,7 @@ class TugasModel {
       tanggal: map['tanggal'],
       kategori: map['kategori'],
       selesai: map['selesai'],
+      completedAt: map['completed_at'] as String?,
     );
   }
 }

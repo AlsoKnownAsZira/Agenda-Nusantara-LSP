@@ -1,3 +1,4 @@
+import 'package:agenda_nusantara/app/modules/beranda/beranda_controller.dart';
 import 'package:agenda_nusantara/app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,9 +29,9 @@ class BerandaNavigasi extends StatelessWidget {
                           ),
                           height: 45,
                           width: 45,
-                          child: Icon(Icons.add, color: Colors.white),
+                          child: const Icon(Icons.add, color: Colors.white),
                         ),
-                        Text(
+                        const Text(
                           'Tambah Tugas Penting',
                           style: TextStyle(
                             color: Colors.black,
@@ -59,13 +60,11 @@ class BerandaNavigasi extends StatelessWidget {
                             color: Colors.green,
                             borderRadius: BorderRadius.circular(10),
                           ),
-
                           height: 45,
                           width: 45,
-                          child: Icon(Icons.add, color: Colors.white),
+                          child: const Icon(Icons.add, color: Colors.white),
                         ),
-
-                        Text(
+                        const Text(
                           'Tambah Tugas Biasa',
                           style: TextStyle(
                             color: Colors.black,
@@ -84,64 +83,70 @@ class BerandaNavigasi extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: Card(
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(10),
+              child: GestureDetector(
+                onTap: () async {
+                  await Get.toNamed(AppRoutes.daftarTugas);
+                  Get.find<BerandaController>().loadData();
+                },
+                child: Card(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          height: 45,
+                          width: 45,
+                          child: const Icon(Icons.list, color: Colors.white),
                         ),
-                        height: 45,
-                        width: 45,
-                        child: Icon(Icons.list, color: Colors.white),
-                      ),
-
-                      Text(
-                        'Daftar Tugas',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                        const Text(
+                          'Daftar Tugas',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
             Expanded(
-              child: Card(
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(10),
+              child: GestureDetector(
+                onTap: () => Get.toNamed(AppRoutes.pengaturan),
+                child: Card(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          height: 45,
+                          width: 45,
+                          child: const Icon(Icons.settings, color: Colors.white),
                         ),
-
-                        height: 45,
-                        width: 45,
-                        child: Icon(Icons.settings, color: Colors.white),
-                      ),
-
-                      Text(
-                        'Pengaturan',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                        const Text(
+                          'Pengaturan',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

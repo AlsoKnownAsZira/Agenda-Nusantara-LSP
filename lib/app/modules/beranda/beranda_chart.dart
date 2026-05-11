@@ -37,7 +37,6 @@ class BerandaChart extends StatelessWidget {
           ),
         );
       }
-
       return Card(
         color: Colors.white,
         child: Padding(
